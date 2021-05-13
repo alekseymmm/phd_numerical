@@ -1,5 +1,5 @@
 import numpy as np
-
+# http://hplgit.github.io/prog4comp/doc/pub/p4c-sphinx-Python/._pylight007.html
 def Newton_system(F, J, x, eps):
     """
     Solve nonlinear system F=0 by Newton's method.
