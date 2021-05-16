@@ -1,13 +1,12 @@
 import math
 
 import numpy as np
-import matplotlib.pyplot as plt
+
 
 def F(x, Y):
-    # return np.asarray([x + Y[0]**2,
-    #                    (Y[0] - Y[1])**2])
-    return np.asarray([Y[1],
-                       math.exp( -x * Y[0])])
+    return np.asarray([x * math.sin(Y[1]),
+                       x+math.cos(x*Y[0])])
+
 def euler(F, u0, tau, T):
     N_t = int(round(T/tau))
     F_ = lambda t, u: np.asarray(F(t, u))
@@ -30,4 +29,5 @@ def eu(f, h, a, b, y_ic):
         x = x + h
     return y
 
-print("euler result: ", eu(F, 0.1, 0, 3, [0 , 0]))
+# print("euler result: ", eu(F, 0.1, 0, 3, [0 , 0]))
+print("euler result: ", eu(F, 0.1, 0, 2, [0 , 0]))
