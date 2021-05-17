@@ -11,7 +11,7 @@ def rk(f, h, a, b, y_ic):
     x = a
     y = y_ic
 
-    while (x <= b):
+    while (x < b):
         print("x=%.8f" % x, " y=", y)
         k1 = f(x, y)
         k2 = f(x + h / 2, y + h / 2 * k1)
@@ -20,6 +20,8 @@ def rk(f, h, a, b, y_ic):
 
         y = y + (h / 6) * (k1 + 2 * k2 + 2 * k3 + k4)
         x = x + h
+
+    print("x=%.8f" % x, " y=", y)
     return y
 
 print("rk result: ", rk(F, 0.1, 1, 3, [0.5 , -0.5]))

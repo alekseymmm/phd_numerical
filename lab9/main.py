@@ -13,10 +13,12 @@ def eu(f, h, a, b, y_ic):
     x = a
     y = y_ic
 
-    while (x <= b):
+    while (x < b):
         print("x=%.8f" % x, " y=", y)
         y = y + h * f(x, y)
         x = x + h
+
+    print("x=%.8f" % x, " y=", y)
     return y
 
 print("euler result: ", eu(F, 0.1, 0, 2, [0 , 0]))
