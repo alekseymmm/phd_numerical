@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+# https://www-users.york.ac.uk/~mijp1/teaching/2nd_year_Num_Methods/lecture_2_handout.pdf
 def Aitken(xData,yData,x):
     m=len(xData)
     y=yData.copy()
