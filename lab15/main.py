@@ -14,6 +14,40 @@ def derivative(f,a,method='central',h=0.01):
     else:
         raise ValueError("Method must be 'central', 'right' or 'left'.")
 
+def spline(x, y):
+    n = len(x) - 1
+
+    h = [x[i+1] - x[i] for i in range(n)]
+
+    alpha = [0.0 for i in range(0, n)]
+    for i in range(1, n):
+        alpha[i] = (3 / h[i]) * (y[i+1] - y[i]) - (3 / h[i-1]) * (y[i] - y[i-1])
+
+    l = [1] * (n+1)
+    mu = [0] * (n + 1)
+    z = [0] * (n + 1)
+    for i in range(1, n):
+        l[i] = 2 * (x[i+1] - x[i-1]) - h[i-1] * mu[i-1]
+        mu[i] = h[i] / l[i]
+        z[i] = (alpha[i] - h[i-1] * z[i-1]) / l[i]
+
+    b = [0] * (n + 1)
+    c = [0] * (n + 1)
+    d = [0] * (n + 1)
+    for i in range(n-1, -1, -1):
+        c[i] = z[i] - mu[i] * c[i+1]
+        b[i] = (y[i+1] - y[i]) / h[i] - h[i] * (c[i+1] + 2 * c[i]) / 3
+        d[i] = (c[i+1] - c[i]) / (3 * h[i])
+    return y, b, c, d
+
+def eval_spline(a, b, c, d, x, xx):
+    yy = [0.0 for i in range(0, len(xx))]
+    for i in range(0, len(x)-1):
+        for j in range(0, len(xx)):
+            if x[i] <= xx[j] <= x[i+1]:
+                yy[j] = a[i] + b[i] * (xx[j] - x[i]) + c[i] * (xx[j] - x[i])** 2 + d[i] * (xx[j] - x[i]) ** 3
+    return yy
+
 def ddf(f, a, h):
     return (f(a+h) - 2 * f(a) + f (a-h)) / h / h
 
